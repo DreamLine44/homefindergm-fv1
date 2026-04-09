@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none">
+  <!-- House roof -->
+  <path d="M8 30 L28 10 L48 30" stroke="#1d4ed8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Left wall -->
+  <line x1="13" y1="27" x2="13" y2="48" stroke="#1d4ed8" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Right wall -->
+  <line x1="43" y1="27" x2="43" y2="48" stroke="#1d4ed8" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Floor -->
+  <line x1="13" y1="48" x2="43" y2="48" stroke="#1d4ed8" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Window (orange) -->
+  <rect x="21" y="30" width="14" height="10" rx="1.5" fill="#f97316"/>
+  <!-- Window pane cross -->
+  <line x1="28" y1="30" x2="28" y2="40" stroke="white" stroke-width="1.2"/>
+  <line x1="21" y1="35" x2="35" y2="35" stroke="white" stroke-width="1.2"/>
+  <!-- Ground sweep -->
+  <path d="M6 52 Q28 47 50 52" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"/>
+  <!-- "HomeFinder" text - blue gradient feel via two-tone -->
+  <text x="60" y="40" font-family="DM Sans, Inter, Arial, sans-serif" font-weight="800" font-size="28" fill="#1d4ed8" letter-spacing="-0.8">HomeFinder</text>
+  <!-- "GM" text - orange -->
+  <text x="229" y="40" font-family="DM Sans, Inter, Arial, sans-serif" font-weight="900" font-size="29" fill="#f97316" letter-spacing="-0.5">GM</text>
+</svg>

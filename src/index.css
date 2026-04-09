@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #fafaf8;
+    color: #1c1917;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+}
+
+@layer utilities {
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 4px; }
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+
+/* ── Performance: reduce layout shift from images ── */
+img {
+  content-visibility: auto;
+}
+
+/* ── Mobile: ensure tap targets are large enough ── */
+@media (max-width: 768px) {
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent text overflow on small screens */
+  .truncate-mobile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* ── Smooth page transitions ── */
+@keyframes animate-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: animate-fade-up 0.3s ease-out both;
+}
+
+/* ── Mobile sidebar slide-in ── */
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+.sidebar-slide-in {
+  animation: slide-in-left 0.25s ease-out both;
+}
+
+/* ── Admin panel: prevent horizontal overflow on mobile ── */
+.admin-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Forms: always full-width on mobile ── */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    min-height: 44px; /* Minimum touch target */
+    font-size: 16px;  /* Prevent iOS auto-zoom */
+  }
+}
+
+/* ── Mobile nav: ensure overlay sits above everything ── */
+@media (max-width: 768px) {
+  /* Fix iOS momentum scrolling in mobile menu */
+  .mobile-menu-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Minimum touch target for all interactive elements */
+  button, a, [role="button"] {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Prevent horizontal overflow globally */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* ── Prevent layout bleed on small screens ── */
+.max-w-7xl, .max-w-5xl, .max-w-3xl, .max-w-2xl {
+  width: 100%;
+}
+
+/* ── Image performance: use aspect-ratio to prevent layout shift ── */
+.listing-image {
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+/* ── Smooth mobile sidebar ── */
+aside {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
