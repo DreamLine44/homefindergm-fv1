@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../api/authApi";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 
@@ -37,8 +37,8 @@ export default function Register() {
     try {
       const { confirm, ...payload } = form; // strip confirm field
       const res = await signup(payload);
-      login(res.data);                      // res.data = { success, data: { token, user } }
-      navigate("/dashboard");
+      login(res.data);                       // synchronous — sets user state immediately
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setServerError(
         err.response?.data?.message || "Registration failed. Please try again."
@@ -49,7 +49,7 @@ export default function Register() {
   return (
     <div>
       <div className="mb-8 text-center">
-        <h1 className="font-display text-3xl font-bold text-stone-900 mb-2">
+        <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900 mb-2">
           Create account
         </h1>
         <p className="text-stone-500 text-sm">
@@ -67,14 +67,14 @@ export default function Register() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Input
             label="First Name"
-            placeholder="Hassan"
+            placeholder="e.g. Amara"
             value={form.firstName}
             onChange={(e) => set("firstName", e.target.value)}
             error={errors.firstName}
           />
           <Input
             label="Last Name"
-            placeholder="Trawally"
+            placeholder="e.g. Jallow"
             value={form.lastName}
             onChange={(e) => set("lastName", e.target.value)}
             error={errors.lastName}

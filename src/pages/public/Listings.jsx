@@ -62,10 +62,10 @@ export default function Listings() {
     filters.type || filters.city || filters.minPrice || filters.maxPrice || filters.search;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-6 sm:py-10">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="font-display text-4xl font-bold text-stone-900 mb-1">All Properties</h1>
+        <h1 className="font-display text-2xl sm:text-4xl font-bold text-stone-900 mb-1">All Properties</h1>
         <p className="text-stone-500">
           {loading ? "Loading…" : `${filtered.length} listing${filtered.length !== 1 ? "s" : ""} found`}
           {hasActiveFilters && !loading && (

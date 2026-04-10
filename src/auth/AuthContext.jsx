@@ -1,89 +1,106 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import { getProfile } from "../api/profileApi";
 
-const AuthContext = createContext();
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext();
+
+/** Build a clean user object from raw auth data + optional profile merge */
+function buildUserObject(authUser, token, profile = null) {
+  const base = { ...authUser, token };
+  if (!profile) return base;
+
+  const avatarUrl =
+    typeof profile.avatar === "string"
+      ? profile.avatar
+      : profile.avatar?.url || null;
+
+  return {
+    ...base,
+    profileId: profile._id,
+    avatar:    avatarUrl,
+    username:  profile.username  || base.username  || null,
+    firstName: profile.firstName || base.firstName || null,
+    lastName:  profile.lastName  || base.lastName  || null,
+    phone:     profile.phone     || base.phone     || null,
+    location:  profile.location  || base.location  || null,
+  };
+}
 
 export default function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null);
+  const [user,    setUser]    = useState(null);
   const [loading, setLoading] = useState(true);
+  // Prevent concurrent profile fetches
+  const fetchingProfile = useRef(false);
 
-  // On mount: restore user from localStorage, then refresh profile from API
+  /* ── Restore session on mount ── */
   useEffect(() => {
     const token  = localStorage.getItem("token");
     const stored = localStorage.getItem("user");
+
     if (token && stored) {
       try {
         const parsed = JSON.parse(stored);
+        // Restore immediately — no async blocking
         setUser(parsed);
-        // Silently refresh profile data (avatar, username, etc.) in background
-        getProfile()
-          .then((r) => {
-            const p = r.data?.data || r.data?.profile || r.data;
-            if (p && p._id) {
-              const avatarUrl = typeof p.avatar === "string"
-                ? p.avatar
-                : p.avatar?.url || null;
-              const merged = {
-                ...parsed,
-                profileId:  p._id,
-                avatar:     avatarUrl,
-                username:   p.username  || parsed.username  || null,
-                // BUG FIX #1: prefer profile name, but fall back to parsed (from sign-up)
-                firstName:  p.firstName || parsed.firstName || null,
-                lastName:   p.lastName  || parsed.lastName  || null,
-                phone:      p.phone     || parsed.phone     || null,
-                location:   p.location  || parsed.location  || null,
-              };
-              localStorage.setItem("user", JSON.stringify(merged));
-              setUser(merged);
-            }
-          })
-          .catch(() => {}); // silently ignore — user still logged in
+
+        // Background profile refresh (won't block the session restore)
+        if (!fetchingProfile.current) {
+          fetchingProfile.current = true;
+          getProfile()
+            .then((r) => {
+              const p = r.data?.data || r.data?.profile || r.data;
+              if (p && p._id) {
+                const enriched = buildUserObject(parsed, token, p);
+                localStorage.setItem("user", JSON.stringify(enriched));
+                setUser(enriched);
+              }
+            })
+            .catch(() => {})
+            .finally(() => { fetchingProfile.current = false; });
+        }
       } catch {
-        localStorage.clear();
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
       }
     }
     setLoading(false);
   }, []);
 
-  // Called with the full API response: res.data
-  // Signup returns user as an array; signin returns user as an object — handle both.
-  const login = async (responseData) => {
-    const token   = responseData?.data?.token;
-    const rawUser = responseData?.data?.user;
+  /**
+   * login() — called after signup or signin with the full API response.
+   * setUser() is called SYNCHRONOUSLY before any async work so ProtectedRoute
+   * won't bounce the user back to /login.
+   * Profile is fetched in the background and merges silently.
+   */
+  const login = (responseData) => {
+    const token    = responseData?.data?.token;
+    const rawUser  = responseData?.data?.user;
     const authUser = Array.isArray(rawUser) ? rawUser[0] : rawUser;
+
     if (!token || !authUser) return;
 
-    // BUG FIX #1: Store full user including firstName + lastName from sign-up immediately
-    const base = { ...authUser, token };
+    // 1. Persist & set user state IMMEDIATELY (synchronous, no awaiting)
+    const base = buildUserObject(authUser, token);
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(base));
     setUser(base);
 
-    // Then fetch profile to get avatar, username, etc.
-    try {
-      const r = await getProfile();
-      const p = r.data?.data || r.data?.profile || r.data;
-      if (p && p._id) {
-        const avatarUrl = typeof p.avatar === "string"
-          ? p.avatar
-          : p.avatar?.url || null;
-        const enriched = {
-          ...base,
-          profileId: p._id,
-          avatar:    avatarUrl,
-          username:  p.username  || null,
-          // BUG FIX #1: profile name takes priority; fall back to base (sign-up data)
-          firstName: p.firstName || base.firstName || null,
-          lastName:  p.lastName  || base.lastName  || null,
-          phone:     p.phone     || null,
-          location:  p.location  || null,
-        };
-        localStorage.setItem("user", JSON.stringify(enriched));
-        setUser(enriched);
-      }
-    } catch (_) {}
+    // 2. Background profile fetch — does NOT block the caller
+    if (!fetchingProfile.current) {
+      fetchingProfile.current = true;
+      getProfile()
+        .then((r) => {
+          const p = r.data?.data || r.data?.profile || r.data;
+          if (p && p._id) {
+            const enriched = buildUserObject(authUser, token, p);
+            localStorage.setItem("user", JSON.stringify(enriched));
+            setUser(enriched);
+          }
+        })
+        .catch(() => {
+          // New user — no profile yet. That's fine; base is already set.
+        })
+        .finally(() => { fetchingProfile.current = false; });
+    }
   };
 
   const logout = () => {
@@ -93,13 +110,15 @@ export default function AuthProvider({ children }) {
   };
 
   const updateUser = (data) => {
-    const updated = { ...user, ...data };
-    // Resolve avatar to always store as URL string
-    if (data.avatar && typeof data.avatar === "object") {
-      updated.avatar = data.avatar.url || null;
-    }
-    localStorage.setItem("user", JSON.stringify(updated));
-    setUser(updated);
+    setUser((prev) => {
+      if (!prev) return prev;
+      const updated = { ...prev, ...data };
+      if (data.avatar && typeof data.avatar === "object") {
+        updated.avatar = data.avatar.url || null;
+      }
+      localStorage.setItem("user", JSON.stringify(updated));
+      return updated;
+    });
   };
 
   return (

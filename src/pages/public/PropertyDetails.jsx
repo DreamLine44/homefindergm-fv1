@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getPost, deletePost } from "../../api/postApi";
 import { getPublicProfile } from "../../api/profileApi";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import ImageGallery from "../../components/posts/ImageGallery";
 import CommentList from "../../components/comments/CommentList";
 import { formatPrice, formatDate, getInitials } from "../../utils/helpers";
@@ -120,7 +120,7 @@ export default function PropertyDetails() {
     null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-4 sm:py-8">
 
       {/* ── Back navigation ── */}
       <div className="mb-6">
@@ -144,20 +144,20 @@ export default function PropertyDetails() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
 
         {/* ── Main content ── */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 sm:space-y-8">
           <ImageGallery images={post.images} />
 
           <div>
-            <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-              <div>
+            <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-start sm:justify-between gap-3 mb-4">
+              <div className="min-w-0">
                 <Badge variant="brand" className="mb-2">{post.type}</Badge>
-                <h1 className="font-display text-3xl font-bold text-stone-900">{post.title}</h1>
-                <p className="text-stone-500 flex items-center gap-1 mt-1">
+                <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900 break-words">{post.title}</h1>
+                <p className="text-stone-500 flex items-center gap-1 mt-1 text-sm sm:text-base">
                   📍 {post.location}{post.addressDetails ? ` · ${post.addressDetails}` : ""}
                 </p>
               </div>
-              <div className="text-right">
-                <div className="font-display text-3xl font-bold text-brand-600">
+              <div className="sm:text-right">
+                <div className="font-display text-2xl sm:text-3xl font-bold text-brand-600 break-all">
                   {formatPrice(post.price)}
                 </div>
                 <div className="mt-1">

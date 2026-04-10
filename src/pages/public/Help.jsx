@@ -8,8 +8,8 @@ const faqs = [
 
 export default function Help() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-stone-900 mb-4 text-center">Help Center</h1>
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-16">
+      <h1 className="font-display text-2xl sm:text-4xl font-bold text-stone-900 mb-4 text-center">Help Center</h1>
       <p className="text-stone-500 text-center mb-10">Frequently asked questions</p>
       <div className="space-y-4">
         {faqs.map(({ q, a }) => (

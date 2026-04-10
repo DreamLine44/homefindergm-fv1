@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllUsers, adminDelete } from "../../api/adminApi";
-import { formatDate, getInitials } from "../../utils/helpers";
+import { formatDate, getInitials, resolvePersonName } from "../../utils/helpers";
 
 export default function AdminUsersPage() {
   const [users,    setUsers]    = useState([]);
@@ -76,7 +76,7 @@ export default function AdminUsersPage() {
             {filtered.map((u) => {
               const name = u.firstName
                 ? `${u.firstName} ${u.lastName || ""}`.trim()
-                : u.email?.split("@")[0] || "Unknown";
+                : resolvePersonName(u) || "Anonymous";
               const avatarUrl = typeof u.avatar === "string" ? u.avatar : u.avatar?.url || null;
               return (
                 <div key={u._id} className="flex items-center gap-3 px-4 py-3">
@@ -125,7 +125,7 @@ export default function AdminUsersPage() {
                 {filtered.map((u) => {
                   const name = u.firstName
                     ? `${u.firstName} ${u.lastName || ""}`.trim()
-                    : u.email?.split("@")[0] || "Unknown";
+                    : resolvePersonName(u) || "Anonymous";
                   const avatarUrl = typeof u.avatar === "string" ? u.avatar : u.avatar?.url || null;
                   return (
                     <tr key={u._id} className="hover:bg-slate-50 transition-colors">

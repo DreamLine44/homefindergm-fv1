@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { getComments, createComment } from "../../api/commentApi";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import CommentItem from "./CommentItem";
 import Button from "../common/Button";
 import Loader from "../common/Loader";

@@ -56,7 +56,7 @@ export default function PostForm({ initial = {}, onSubmit, loading }) {
         placeholder="e.g. Modern 2-bedroom apartment"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Type */}
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium text-stone-700">Property Type *</label>

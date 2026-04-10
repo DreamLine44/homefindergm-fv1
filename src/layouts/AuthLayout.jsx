@@ -2,12 +2,12 @@ import { Outlet, Link } from "react-router-dom";
 
 export default function AuthLayout() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-700 via-brand-800 to-brand-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-700 via-brand-800 to-brand-900 flex items-center justify-center p-4 overflow-x-hidden">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center justify-center">
+        <div className="text-center mb-6 sm:mb-8">
+          <Link to="/" className="inline-flex items-center justify-center max-w-full">
             {/* White version of logo for dark bg */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none" className="h-11">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none" className="h-9 sm:h-11 w-auto max-w-[260px]">
               <path d="M8 30 L28 10 L48 30" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
               <line x1="13" y1="27" x2="13" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
               <line x1="43" y1="27" x2="43" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
@@ -22,7 +22,7 @@ export default function AuthLayout() {
           </Link>
           <p className="text-brand-200 text-sm mt-3">The Gambia's Premier Property Platform</p>
         </div>
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
+        <div className="bg-white rounded-3xl shadow-2xl p-5 sm:p-8">
           <Outlet />
         </div>
         <p className="text-center mt-6 text-sm text-brand-200">

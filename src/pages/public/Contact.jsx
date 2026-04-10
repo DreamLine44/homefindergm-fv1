@@ -13,9 +13,9 @@ export default function Contact() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-16">
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-16">
       <div className="text-center mb-10">
-        <h1 className="font-display text-4xl font-bold text-stone-900 mb-3">Get In Touch</h1>
+        <h1 className="font-display text-2xl sm:text-4xl font-bold text-stone-900 mb-3">Get In Touch</h1>
         <p className="text-stone-500">Have a question or need help? We're here for you.</p>
       </div>
       {sent ? (

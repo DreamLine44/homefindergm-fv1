@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllReports, deleteReport, updateReportStatus } from "../../api/reportApi";
-import { formatDate } from "../../utils/helpers";
+import { formatDate, resolvePersonName } from "../../utils/helpers";
 import Badge from "../../components/common/Badge";
 
 const STATUS_TABS = ["", "pending", "reviewed", "resolved", "dismissed"];
@@ -79,9 +79,9 @@ export default function ReportsPage() {
           {/* Mobile card list */}
           <div className="md:hidden divide-y divide-slate-100">
             {filtered.map((r) => {
-              const name = r.reporter?.firstName
+              const name = resolvePersonName(r.reporter) || resolvePersonName(r.reportedBy) || "Anonymous"; // was:
                 ? `${r.reporter.firstName} ${r.reporter.lastName || ""}`.trim()
-                : r.reporter?.email || "Unknown";
+                : resolvePersonName(r.reportedBy) || "Anonymous";
               return (
                 <div key={r._id} className="px-4 py-3 space-y-2">
                   <div className="flex items-start justify-between gap-2">
@@ -128,9 +128,9 @@ export default function ReportsPage() {
               </thead>
               <tbody className="divide-y divide-slate-50">
                 {filtered.map((r) => {
-                  const name = r.reporter?.firstName
+                  const name = resolvePersonName(r.reporter) || resolvePersonName(r.reportedBy) || "Anonymous"; // was:
                     ? `${r.reporter.firstName} ${r.reporter.lastName || ""}`.trim()
-                    : r.reporter?.email || "Unknown";
+                    : resolvePersonName(r.reportedBy) || "Anonymous";
                   return (
                     <tr key={r._id} className="hover:bg-slate-50 transition-colors">
                       <td className="px-5 py-3 text-slate-700">{name}</td>

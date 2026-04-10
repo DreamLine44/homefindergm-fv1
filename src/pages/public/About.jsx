@@ -70,17 +70,17 @@ export default function About() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-stone-900 via-stone-800 to-brand-900 text-white py-20">
+      <section className="bg-gradient-to-br from-stone-900 via-stone-800 to-brand-900 text-white py-12 sm:py-20">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="font-display text-5xl font-bold mb-4">About HomeFinderGM</h1>
-          <p className="text-xl text-stone-300 max-w-2xl mx-auto leading-relaxed">
+          <h1 className="font-display text-3xl sm:text-5xl font-bold mb-4">About HomeFinderGM</h1>
+          <p className="text-base sm:text-xl text-stone-300 max-w-2xl mx-auto leading-relaxed px-2">
             Connecting people with their perfect homes across The Gambia since 2026.
           </p>
         </div>
       </section>
 
       {/* Mission + Vision */}
-      <section className="max-w-5xl mx-auto px-4 py-16">
+      <section className="max-w-5xl mx-auto px-4 py-10 sm:py-16">
         <div className="grid md:grid-cols-2 gap-12">
           <div className="bg-white rounded-2xl border border-stone-100 p-8">
             <div className="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center text-2xl mb-5">🎯</div>
@@ -103,7 +103,7 @@ export default function About() {
       </section>
 
       {/* Stats — live data where possible */}
-      <section className="bg-stone-50 border-y border-stone-100 py-16">
+      <section className="bg-stone-50 border-y border-stone-100 py-10 sm:py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-stone-900 text-center mb-10">
             HomeFinderGM by the numbers
@@ -117,7 +117,7 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="max-w-5xl mx-auto px-4 py-16">
+      <section className="max-w-5xl mx-auto px-4 py-10 sm:py-16">
         <h2 className="font-display text-3xl font-bold text-stone-900 text-center mb-10">
           Why choose HomeFinderGM?
         </h2>

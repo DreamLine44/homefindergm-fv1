@@ -4,13 +4,17 @@
 
 @layer base {
   * { box-sizing: border-box; }
+  html { overflow-x: hidden; }
   body {
     font-family: 'DM Sans', sans-serif;
     background-color: #fafaf8;
     color: #1c1917;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
   h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+  img { max-width: 100%; }
 }
 
 @layer utilities {

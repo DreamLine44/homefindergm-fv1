@@ -7,10 +7,10 @@ export default function Messages() {
 
   return (
     <div className="animate-fade-up">
-      <h1 className="font-display text-3xl font-bold text-stone-900 mb-2">Messages</h1>
+      <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900 mb-2">Messages</h1>
       <p className="text-stone-500 mb-8">Chat with buyers and sellers.</p>
       <div className="bg-white rounded-2xl border border-stone-100 overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-stone-100 h-[500px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-stone-100 min-h-[400px] max-h-[600px]">
           {/* Thread list */}
           <div className="overflow-y-auto">
             {threads.map((t) => (
@@ -33,7 +33,7 @@ export default function Messages() {
           </div>
           {/* Chat area */}
           <div className="md:col-span-2 flex flex-col items-center justify-center text-center p-8">
-            <div className="text-5xl mb-4">💬</div>
+            <div className="text-4xl mb-4">💬</div>
             <h3 className="font-semibold text-stone-800 mb-2">Select a conversation</h3>
             <p className="text-sm text-stone-400">Choose a thread from the left to start chatting.</p>
             <p className="text-xs text-stone-300 mt-4 italic">Full chat functionality coming soon</p>

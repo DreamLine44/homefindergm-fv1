@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import { Link } from "react-router-dom";
 import { getPosts } from "../../api/postApi";
 import PostGrid from "../../components/posts/PostGrid";
@@ -41,14 +41,14 @@ export default function Home() {
           className="absolute inset-0 opacity-10"
           style={{ backgroundImage: "url(https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1400&q=80)", backgroundSize: "cover", backgroundPosition: "center" }}
         />
-        <div className="relative max-w-5xl mx-auto px-4 py-28 text-center">
+        <div className="relative max-w-5xl mx-auto px-4 py-16 sm:py-28 text-center">
           <span className="inline-block px-3 py-1 bg-brand-500/20 border border-brand-500/30 rounded-full text-brand-300 text-sm font-medium mb-6">
             The Gambia's #1 Property Platform
           </span>
-          <h1 className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6">
             Find Your <span className="text-brand-400 italic">Dream</span><br />Home Today
           </h1>
-          <p className="text-xl text-stone-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-xl text-stone-300 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-2">
             Browse thousands of verified property listings across The Gambia. Houses, apartments, villas and more.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
@@ -89,11 +89,11 @@ export default function Home() {
       </section>
 
       {/* Featured Listings */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
+      <section className="max-w-7xl mx-auto px-4 py-10 sm:py-16">
         <div className="flex items-end justify-between mb-8">
           <div>
             <p className="text-brand-600 text-sm font-medium mb-1">Latest Properties</p>
-            <h2 className="font-display text-3xl font-bold text-stone-900">Featured Listings</h2>
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-stone-900">Featured Listings</h2>
           </div>
           <Link to="/properties">
             <Button variant="outline">View all →</Button>
@@ -103,7 +103,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="bg-brand-600 text-white py-16">
+      <section className="bg-brand-600 text-white py-10 sm:py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">Ready to list your property?</h2>
           <p className="text-brand-100 mb-8 text-lg">Reach thousands of potential buyers and renters across The Gambia.</p>

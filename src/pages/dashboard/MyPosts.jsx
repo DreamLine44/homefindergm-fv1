@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import { getPosts, deletePost } from "../../api/postApi";
 import { formatPrice, formatDate } from "../../utils/helpers";
 import Button from "../../components/common/Button";
@@ -51,7 +51,7 @@ export default function MyPosts() {
     <div className="space-y-6 animate-fade-up">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold text-stone-900">My Listings</h1>
+          <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900">My Listings</h1>
           <p className="text-stone-500 mt-1">
             {posts.length} listing{posts.length !== 1 ? "s" : ""}
           </p>
@@ -91,7 +91,7 @@ export default function MyPosts() {
             {posts.map((post) => (
               <div
                 key={post._id}
-                className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_auto] gap-4 px-5 py-4 items-center hover:bg-stone-50 transition-colors"
+                className="flex flex-col md:grid md:grid-cols-[2fr_1fr_1fr_auto] gap-3 md:gap-4 p-4 md:px-5 md:py-4 items-start md:items-center hover:bg-stone-50 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-xl overflow-hidden bg-stone-100 flex-shrink-0">
@@ -118,19 +118,20 @@ export default function MyPosts() {
                   </div>
                 </div>
 
-                <div className="font-semibold text-brand-600">{formatPrice(post.price)}</div>
-                <div className="text-sm text-stone-400">{formatDate(post.createdAt)}</div>
-
-                <div className="flex gap-2 flex-wrap items-center">
-                  <Link to={`/properties/${post._id}`}>
-                    <Button size="sm" variant="outline" className="min-w-[56px]">View</Button>
-                  </Link>
-                  <Link to={`/dashboard/posts/${post._id}/edit`}>
-                    <Button size="sm" variant="secondary" className="min-w-[56px]">Edit</Button>
-                  </Link>
-                  <Button size="sm" variant="danger" className="min-w-[64px]" onClick={() => handleDelete(post._id)}>
-                    Delete
-                  </Button>
+                <div className="flex items-center justify-between w-full md:contents">
+                  <div className="font-semibold text-brand-600 text-sm sm:text-base truncate max-w-[200px]">{formatPrice(post.price)}</div>
+                  <div className="text-sm text-stone-400 hidden md:block">{formatDate(post.createdAt)}</div>
+                  <div className="flex gap-2 items-center">
+                    <Link to={`/properties/${post._id}`}>
+                      <Button size="sm" variant="outline" className="min-w-[52px]">View</Button>
+                    </Link>
+                    <Link to={`/dashboard/posts/${post._id}/edit`}>
+                      <Button size="sm" variant="secondary" className="min-w-[52px]">Edit</Button>
+                    </Link>
+                    <Button size="sm" variant="danger" className="min-w-[60px]" onClick={() => handleDelete(post._id)}>
+                      Delete
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}

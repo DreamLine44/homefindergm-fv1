@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Outlet, Link, NavLink, useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../auth/useAuth";
 import { getInitials } from "../utils/helpers";
 
 const NAV_LINKS = [
@@ -48,7 +48,7 @@ export default function MainLayout() {
   }, [logout, navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-warm-50">
+    <div className="min-h-screen flex flex-col bg-warm-50 overflow-x-hidden">
       {/* ── Navbar ── */}
       <header className="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
@@ -233,13 +233,9 @@ export default function MainLayout() {
                   </button>
                 </div>
               ) : (
-                <div className="px-4 py-4 flex flex-col gap-3">
-                  <Link to="/login" onClick={() => setMobileOpen(false)}
-                    className="w-full text-center py-3.5 rounded-xl border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
-                    Sign in
-                  </Link>
+                <div className="px-4 py-4">
                   <Link to="/register" onClick={() => setMobileOpen(false)}
-                    className="w-full text-center py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold transition-colors shadow-sm">
+                    className="w-full text-center py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold transition-colors shadow-sm block">
                     Get started
                   </Link>
                 </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, NavLink, Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../auth/useAuth";
 import { getInitials } from "../utils/helpers";
 
 const navItems = [
@@ -135,7 +135,9 @@ export default function AdminLayout() {
         </header>
 
         <main className="flex-1 p-3 sm:p-5 lg:p-6 overflow-auto min-w-0">
-          <Outlet />
+          <div className="max-w-5xl mx-auto w-full">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

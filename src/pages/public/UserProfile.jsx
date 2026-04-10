@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import { getPublicProfile } from "../../api/profileApi";
 import { createReport } from "../../api/reportApi";
 import { getInitials, formatPrice, timeAgo } from "../../utils/helpers";
@@ -80,8 +80,8 @@ export default function UserProfile() {
   if (loading) return <Loader />;
 
   if (notFound) return (
-    <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-      <div className="text-5xl mb-4">👤</div>
+    <div className="max-w-2xl mx-auto px-4 py-12 sm:py-20 text-center">
+      <div className="text-4xl sm:text-5xl mb-4">👤</div>
       <h2 className="font-display text-2xl font-bold text-stone-900 mb-2">Profile not found</h2>
       <p className="text-stone-500 mb-6">This user hasn't set up their profile yet.</p>
       <Link to="/properties"><Button variant="outline">Browse Listings</Button></Link>
@@ -105,7 +105,7 @@ export default function UserProfile() {
   const whatsapp  = profile?.whatsapp || profile?.phone;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-5xl mx-auto px-4 py-6 sm:py-10">
 
       {/* ── Profile header ── */}
       <div className="bg-white rounded-2xl border border-stone-100 p-6 md:p-8 mb-8">

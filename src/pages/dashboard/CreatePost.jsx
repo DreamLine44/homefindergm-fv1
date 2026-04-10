@@ -41,7 +41,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="max-w-3xl animate-fade-up">
+    <div className="max-w-3xl mx-auto animate-fade-up">
       {/* Back button */}
       <button
         onClick={() => navigate("/dashboard")}
@@ -51,7 +51,7 @@ export default function CreatePost() {
       </button>
 
       <div className="mb-8">
-        <h1 className="font-display text-3xl font-bold text-stone-900 mb-1">New Listing</h1>
+        <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900 mb-1">New Listing</h1>
         <p className="text-stone-500">Fill in the details to publish your property listing.</p>
       </div>
 

@@ -39,8 +39,8 @@ const PostCard = memo(function PostCard({ post, eager = false, view = "grid" }) 
           <p className="text-sm text-stone-500 mb-1">📍 {post.location || "Location TBD"}</p>
           <p className="text-sm text-stone-500 line-clamp-2 flex-1 mb-3">{post.description}</p>
           <div className="flex items-center justify-between pt-3 border-t border-stone-100">
-            <span className="text-lg font-bold text-brand-600">{formatPrice(post.price)}</span>
-            <span className="text-xs text-stone-400">{timeAgo(post.createdAt)}</span>
+            <span className="text-base font-bold text-brand-600 truncate max-w-[65%]">{formatPrice(post.price)}</span>
+            <span className="text-xs text-stone-400 flex-shrink-0">{timeAgo(post.createdAt)}</span>
           </div>
         </div>
       </Link>

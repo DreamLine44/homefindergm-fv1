@@ -47,12 +47,27 @@ export default function ReportDetails() {
   if (loading) return <Loader />;
   if (!report) return null;
 
-  const reporterName = report.reporter?.firstName
-    ? `${report.reporter.firstName} ${report.reporter.lastName || ""}`.trim()
-    : report.reporter?.email || "Unknown";
+  const reporterName = (() => {
+    const r = report.reporter;
+    if (!r) {
+      // Try alternative field names the backend might use
+      const alt = report.reportedBy || report.submittedBy || report.createdBy || report.userId;
+      if (alt && typeof alt === "object") {
+        if (alt.firstName) return `${alt.firstName} ${alt.lastName || ""}`.trim();
+        if (alt.username) return `@${alt.username}`;
+        if (alt.email) return alt.email.split("@")[0];
+      }
+      return "Anonymous User";
+    }
+    if (typeof r === "string") return "User #" + r.slice(-6);
+    if (r.firstName) return `${r.firstName} ${r.lastName || ""}`.trim();
+    if (r.username) return `@${r.username}`;
+    if (r.email) return r.email.split("@")[0];
+    return "Anonymous User";
+  })();
 
   return (
-    <div className="max-w-2xl space-y-5 animate-fade-up">
+    <div className="max-w-2xl mx-auto space-y-5 animate-fade-up">
       <Link to="/admin/reports" className="text-sm text-brand-600 hover:text-brand-700 font-medium">
         ← Back to Reports
       </Link>

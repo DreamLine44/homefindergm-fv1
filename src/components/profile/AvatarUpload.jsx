@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { uploadAvatar, deleteAvatar } from "../../api/profileApi";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import { getInitials } from "../../utils/helpers";
 
 export default function AvatarUpload({ profile, onUpdate, onBeforeUpload }) {

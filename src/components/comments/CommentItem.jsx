@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import { timeAgo, getInitials } from "../../utils/helpers";
 import Button from "../common/Button";
 import Modal from "../common/Modal";

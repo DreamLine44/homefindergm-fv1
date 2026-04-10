@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import { getPosts } from "../../api/postApi";
-import { formatPrice } from "../../utils/helpers";
+import { formatPrice, formatPriceCompact } from "../../utils/helpers";
 import Button from "../../components/common/Button";
 
 // Image A fix: StatCard is now a clickable Link when `to` prop is provided
@@ -12,8 +12,8 @@ function StatCard({ label, value, icon, color, to }) {
       <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-xl sm:text-2xl flex-shrink-0 ${color}`}>
         {icon}
       </div>
-      <div>
-        <div className="text-xl sm:text-2xl font-bold font-display text-stone-900 leading-tight">{value}</div>
+      <div className="min-w-0 flex-1">
+        <div className="text-lg sm:text-xl font-bold font-display text-stone-900 leading-tight truncate">{value}</div>
         <div className="text-xs sm:text-sm text-stone-500">{label}</div>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default function DashboardHome() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold text-stone-900">
+          <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900">
             Welcome back, {firstName} 👋
           </h1>
           <p className="text-stone-500 mt-1">Here's what's happening with your listings</p>
@@ -67,10 +67,10 @@ export default function DashboardHome() {
       </div>
 
       {/* Stats — all cards now clickable and navigate to the right section */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <StatCard label="Total Listings" value={loading ? "—" : posts.length}            icon="🏠" color="bg-brand-50"  to="/dashboard/posts" />
         <StatCard label="Available"      value={loading ? "—" : available}               icon="✅" color="bg-green-50" to="/dashboard/posts" />
-        <StatCard label="Total Value"    value={loading ? "—" : formatPrice(totalValue)} icon="💰" color="bg-amber-50" />
+        <StatCard label="Total Value"    value={loading ? "—" : formatPriceCompact(totalValue)} icon="💰" color="bg-amber-50" />
         <StatCard label="Profile"        value="Complete"                                 icon="👤" color="bg-purple-50" to="/dashboard/profile" />
       </div>
 

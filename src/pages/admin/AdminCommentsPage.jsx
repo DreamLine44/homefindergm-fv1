@@ -5,16 +5,26 @@ import { adminDelete } from "../../api/adminApi";
 import { timeAgo, getInitials } from "../../utils/helpers";
 
 function resolveAuthorName(comment) {
-  if (comment.author?.firstName) return `${comment.author.firstName} ${comment.author.lastName || ""}`.trim();
-  if (comment.user?.firstName)   return `${comment.user.firstName} ${comment.user.lastName || ""}`.trim();
-  if (comment.userId?.firstName) return `${comment.userId.firstName} ${comment.userId.lastName || ""}`.trim();
-  if (comment.author?.username)  return `@${comment.author.username}`;
-  if (comment.user?.username)    return `@${comment.user.username}`;
-  if (comment.author?.email)     return comment.author.email.split("@")[0];
-  if (comment.user?.email)       return comment.user.email.split("@")[0];
-  if (typeof comment.author === "string" && comment.author.length > 5) return comment.author;
-  if (typeof comment.user   === "string" && comment.user.length   > 5) return comment.user;
-  return "User";
+  // Try all possible populated user object fields
+  const obj = (comment.author && typeof comment.author === "object" ? comment.author : null)
+    || (comment.user && typeof comment.user === "object" ? comment.user : null)
+    || (comment.userId && typeof comment.userId === "object" ? comment.userId : null)
+    || (comment.createdBy && typeof comment.createdBy === "object" ? comment.createdBy : null);
+
+  if (obj?.firstName) return `${obj.firstName} ${obj.lastName || ""}`.trim();
+  if (obj?.username)  return `@${obj.username}`;
+  if (obj?.email)     return obj.email.split("@")[0];
+
+  // Plain string IDs or names
+  if (typeof comment.author   === "string" && comment.author.length   > 5 && !comment.author.match(/^[a-f0-9]{24}$/i)) return comment.author;
+  if (typeof comment.user     === "string" && comment.user.length     > 5 && !comment.user.match(/^[a-f0-9]{24}$/i))   return comment.user;
+
+  // Last resort: partial ID so it's still unique/identifiable
+  const id = (typeof comment.author === "string" ? comment.author : null)
+    || (typeof comment.userId === "string" ? comment.userId : null)
+    || comment._id;
+  if (id && id.length >= 6) return `User #${id.slice(-5)}`;
+  return "Anonymous";
 }
 
 export default function AdminCommentsPage() {

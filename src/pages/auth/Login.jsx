@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../../api/authApi";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/useAuth";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 
@@ -30,9 +30,9 @@ export default function Login() {
     setServerError("");
     try {
       const res = await signin(form);
-      login(res.data);             // res.data = { success, data: { token, user } }
+      login(res.data);               // synchronous — sets user state immediately
       const role = res.data?.data?.user?.role;
-      navigate(role === "admin" ? "/admin" : "/dashboard");
+      navigate(role === "admin" ? "/admin" : "/dashboard", { replace: true });
     } catch (err) {
       setServerError(
         err.response?.data?.message || "Invalid email or password"

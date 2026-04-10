@@ -88,7 +88,7 @@ export default function EditPost() {
 
   if (fetchError) {
     return (
-      <div className="max-w-3xl animate-fade-up">
+      <div className="max-w-3xl mx-auto animate-fade-up">
         <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900 mb-6">
           Edit Listing
         </h1>
@@ -113,7 +113,7 @@ export default function EditPost() {
   const maxMoreImages = Math.max(0, 5 - totalImages);
 
   return (
-    <div className="max-w-3xl animate-fade-up">
+    <div className="max-w-3xl mx-auto animate-fade-up">
       <div className="mb-6 sm:mb-8 flex items-center justify-between">
         <div>
           <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900 mb-1">

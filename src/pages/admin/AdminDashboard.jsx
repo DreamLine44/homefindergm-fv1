@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getAllReports } from "../../api/reportApi";
 import { getPosts } from "../../api/postApi";
 import { getAllUsers } from "../../api/adminApi";
-import { formatDate } from "../../utils/helpers";
+import { formatDate, resolvePersonName } from "../../utils/helpers";
 import Badge from "../../components/common/Badge";
 
 const statusVariant = { pending: "warning", reviewed: "info", resolved: "success", dismissed: "default" };
@@ -15,7 +15,7 @@ function StatCard({ label, value, icon, bg, to, loading }) {
         {icon}
       </div>
       <div className="min-w-0">
-        <div className="text-2xl sm:text-3xl font-bold font-display leading-tight">
+        <div className="text-xl sm:text-2xl font-bold font-display leading-tight truncate">
           {loading ? "—" : value}
         </div>
         <div className="text-xs sm:text-sm text-white/80 font-medium">{label}</div>
@@ -102,9 +102,7 @@ export default function AdminDashboard() {
             {/* Mobile card list (hidden on md+) */}
             <div className="md:hidden divide-y divide-slate-100">
               {reports.slice(0, 5).map((r) => {
-                const name = r.reporter?.firstName
-                  ? `${r.reporter.firstName} ${r.reporter.lastName || ""}`.trim()
-                  : r.reporter?.email || "—";
+                const name = resolvePersonName(r.reporter) || resolvePersonName(r.reportedBy) || "Anonymous";
                 return (
                   <div key={r._id} className="px-4 py-3 space-y-1">
                     <div className="flex items-center justify-between gap-2">
@@ -132,9 +130,7 @@ export default function AdminDashboard() {
                 </thead>
                 <tbody className="divide-y divide-slate-50">
                   {reports.slice(0, 5).map((r) => {
-                    const name = r.reporter?.firstName
-                      ? `${r.reporter.firstName} ${r.reporter.lastName || ""}`.trim()
-                      : r.reporter?.email || "—";
+                    const name = resolvePersonName(r.reporter) || resolvePersonName(r.reportedBy) || "Anonymous";
                     return (
                       <tr key={r._id} className="hover:bg-slate-50 transition-colors">
                         <td className="px-5 py-3 text-slate-700 font-medium">{name}</td>
