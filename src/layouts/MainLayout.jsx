@@ -251,7 +251,7 @@ export default function MainLayout() {
       <footer className="bg-gray-900 text-gray-300 pt-14 pb-8 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          {/* Brand row — full width */}
+          {/* Brand */}
           <div className="mb-8">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none" className="h-9 mb-4">
               <path d="M8 30 L28 10 L48 30" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -270,9 +270,9 @@ export default function MainLayout() {
             </p>
           </div>
 
-          {/* Links — 2 equal columns, full width, nothing gets clipped */}
-          <div className="grid grid-cols-2 gap-6 mb-10">
-            <div>
+          {/* Links — stacked on mobile, side by side on sm+ */}
+          <div className="flex flex-col sm:flex-row gap-8 mb-10">
+            <div className="flex-1">
               <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Browse</h4>
               <ul className="space-y-2.5 text-sm">
                 {[
@@ -285,12 +285,12 @@ export default function MainLayout() {
                 ))}
               </ul>
             </div>
-            <div>
+            <div className="flex-1">
               <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Contact</h4>
               <ul className="space-y-2.5 text-sm text-gray-400">
-                <li className="flex items-start gap-2"><span className="flex-shrink-0">📍</span><span className="break-words">Banjul, The Gambia</span></li>
-                <li className="flex items-center gap-2"><span className="flex-shrink-0">📞</span><span className="break-all">+220 353 2423</span></li>
-                <li className="flex items-start gap-2"><span className="flex-shrink-0">✉️</span><span className="break-all">hello@homefindergm.com</span></li>
+                <li className="flex items-center gap-2 whitespace-nowrap">📍 Banjul, The Gambia</li>
+                <li className="flex items-center gap-2 whitespace-nowrap">📞 +220 353 2423</li>
+                <li className="flex items-center gap-2 whitespace-nowrap">✉️ hello@homefindergm.com</li>
               </ul>
             </div>
           </div>
