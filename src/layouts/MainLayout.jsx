@@ -250,8 +250,12 @@ export default function MainLayout() {
       {/* ── Footer ── */}
       <footer className="bg-gray-900 text-gray-300 pt-14 pb-8 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
-            <div className="col-span-2 md:col-span-2">
+
+          {/* Top section: logo + description spanning full width on mobile, left half on desktop */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 mb-10">
+
+            {/* Brand */}
+            <div className="md:max-w-xs">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none" className="h-9 mb-4">
                 <path d="M8 30 L28 10 L48 30" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <line x1="13" y1="27" x2="13" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
@@ -264,32 +268,37 @@ export default function MainLayout() {
                 <text x="60" y="40" fontFamily="DM Sans, Arial, sans-serif" fontWeight="800" fontSize="28" fill="white" letterSpacing="-0.8">HomeFinder</text>
                 <text x="229" y="40" fontFamily="DM Sans, Arial, sans-serif" fontWeight="900" fontSize="29" fill="#f97316" letterSpacing="-0.5">GM</text>
               </svg>
-              <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
-                Premium property listings across The Gambia. Find your perfect home today.
+              <p className="text-sm text-gray-400 leading-relaxed">
+                Premium property listings across The Gambia.<br />Find your perfect home today.
               </p>
             </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Browse</h4>
-              <ul className="space-y-2.5 text-sm">
-                {[
-                  { to: "/properties", label: "All Properties" },
-                  { to: "/about",      label: "About Us" },
-                  { to: "/contact",    label: "Contact" },
-                  { to: "/help",       label: "Help Center" },
-                ].map(({ to, label }) => (
-                  <li key={to}><Link to={to} className="text-gray-400 hover:text-white transition-colors">{label}</Link></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Contact</h4>
-              <ul className="space-y-2.5 text-sm text-gray-400">
-                <li>📍 Banjul, The Gambia</li>
-                <li>📞 +220 353 2423</li>
-                <li>✉️ hello@homefindergm.com</li>
-              </ul>
+
+            {/* Links grid — always 2 equal columns side by side */}
+            <div className="grid grid-cols-2 gap-8 flex-1 md:max-w-md">
+              <div>
+                <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Browse</h4>
+                <ul className="space-y-2.5 text-sm">
+                  {[
+                    { to: "/properties", label: "All Properties" },
+                    { to: "/about",      label: "About Us" },
+                    { to: "/contact",    label: "Contact" },
+                    { to: "/help",       label: "Help Center" },
+                  ].map(({ to, label }) => (
+                    <li key={to}><Link to={to} className="text-gray-400 hover:text-white transition-colors">{label}</Link></li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Contact</h4>
+                <ul className="space-y-2.5 text-sm text-gray-400">
+                  <li className="flex items-start gap-2">📍 <span>Banjul, The Gambia</span></li>
+                  <li className="flex items-center gap-2">📞 <span>+220 353 2423</span></li>
+                  <li className="flex items-center gap-2">✉️ <span>hello@homefindergm.com</span></li>
+                </ul>
+              </div>
             </div>
           </div>
+
           <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-xs text-gray-500">
             <span>© 2026 HomeFinderGM. All rights reserved.</span>
             <span>Built by DreamLine Team</span>
