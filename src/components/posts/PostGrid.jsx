@@ -17,7 +17,7 @@ const PostGrid = memo(function PostGrid({ posts, loading, emptyMessage, view = "
   }, [posts]);
 
   if (loading) return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
       {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
     </div>
   );
@@ -45,7 +45,7 @@ const PostGrid = memo(function PostGrid({ posts, loading, emptyMessage, view = "
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
           {shown.map((post, i) => (
             <PostCard key={post._id} post={post} eager={i < 3} view="grid" />
           ))}

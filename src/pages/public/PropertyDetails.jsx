@@ -148,7 +148,7 @@ export default function PropertyDetails() {
           <ImageGallery images={post.images} />
 
           <div>
-            <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-start sm:justify-between gap-3 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 items-start">
               <div className="min-w-0">
                 <Badge variant="brand" className="mb-2">{post.type}</Badge>
                 <h1 className="font-display text-2xl sm:text-3xl font-bold text-stone-900 break-words">{post.title}</h1>
@@ -156,22 +156,22 @@ export default function PropertyDetails() {
                   📍 {post.location}{post.addressDetails ? ` · ${post.addressDetails}` : ""}
                 </p>
               </div>
-              <div className="sm:text-right">
+              <div className="sm:text-right flex flex-col sm:items-end gap-1">
                 <div className="font-display text-2xl sm:text-3xl font-bold text-brand-600 break-all">
                   {formatPrice(post.price)}
                 </div>
-                <div className="mt-1">
+                <div>
                   <Badge variant={post.status === "Available" ? "success" : "default"}>
                     {post.status || "Available"}
                   </Badge>
                 </div>
-                <div className="text-sm text-stone-400 mt-1">
+                <div className="text-sm text-stone-400">
                   Listed {formatDate(post.createdAt)}
                 </div>
               </div>
             </div>
 
-            <p className="text-stone-600 leading-relaxed">{post.description}</p>
+            <p className="text-stone-600 leading-relaxed text-justify">{post.description}</p>
 
             {features.length > 0 && (
               <div className="mt-6">

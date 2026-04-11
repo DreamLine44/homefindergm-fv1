@@ -178,6 +178,18 @@ export default function MainLayout() {
           <>
             <div className="fixed inset-0 top-16 bg-black/30 z-30 md:hidden" onClick={() => setMobileOpen(false)} />
             <div className="fixed left-0 right-0 top-16 z-40 bg-white border-b border-gray-100 shadow-xl md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto">
+              {/* Sticky close button — always visible at top of panel */}
+              <div className="sticky top-0 bg-white z-10 flex justify-end px-4 pt-3 pb-2 border-b border-gray-50">
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500"
+                  aria-label="Close menu"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
               <nav className="px-4 py-3 space-y-1">
                 {NAV_LINKS.map(({ to, label, exact }) => (
                   <NavLink key={to} to={to} end={exact}
@@ -250,8 +262,8 @@ export default function MainLayout() {
       {/* ── Footer ── */}
       <footer className="bg-gray-900 text-gray-300 pt-14 pb-8 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-            <div className="md:col-span-2">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+            <div className="col-span-2 md:col-span-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none" className="h-9 mb-4">
                 <path d="M8 30 L28 10 L48 30" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <line x1="13" y1="27" x2="13" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>

@@ -51,9 +51,9 @@ const PostCard = memo(function PostCard({ post, eager = false, view = "grid" }) 
   return (
     <Link
       to={`/properties/${post._id}`}
-      className="group bg-white rounded-2xl overflow-hidden border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+      className="group bg-white rounded-2xl overflow-hidden border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
     >
-      <div className="relative h-52 overflow-hidden bg-stone-100">
+      <div className="relative h-56 overflow-hidden bg-stone-100 flex-shrink-0">
         <img
           src={image}
           alt={post.title}
@@ -71,15 +71,17 @@ const PostCard = memo(function PostCard({ post, eager = false, view = "grid" }) 
           </div>
         )}
       </div>
-      <div className="p-4 flex flex-col flex-1">
-        <h3 className="font-semibold text-stone-900 leading-tight line-clamp-1 group-hover:text-brand-600 transition-colors mb-1">
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="font-semibold text-stone-900 text-base leading-snug line-clamp-1 group-hover:text-brand-600 transition-colors mb-1.5">
           {post.title}
         </h3>
-        <p className="text-sm text-stone-500 mb-3">{post.location || "Location TBD"}</p>
-        <p className="text-sm text-stone-500 line-clamp-2 mb-3 flex-1">{post.description}</p>
-        <div className="flex items-center justify-between pt-3 border-t border-stone-100">
+        <p className="text-sm text-stone-500 flex items-center gap-1 mb-2">
+          📍 {post.location || "Location TBD"}
+        </p>
+        <p className="text-sm text-stone-400 line-clamp-2 mb-4 flex-1 leading-relaxed">{post.description}</p>
+        <div className="flex items-center justify-between pt-3 border-t border-stone-100 mt-auto">
           <span className="text-lg font-bold text-brand-600">{formatPrice(post.price)}</span>
-          <span className="text-xs text-stone-400">{timeAgo(post.createdAt)}</span>
+          <span className="text-xs text-stone-400 bg-stone-50 px-2 py-1 rounded-full">{timeAgo(post.createdAt)}</span>
         </div>
       </div>
     </Link>

@@ -47,9 +47,9 @@ export default function ImageGallery({ images }) {
         )}
       </div>
 
-      {/* Thumbnails — centred with padding so they're not flush to edges */}
+      {/* Thumbnails — centered and evenly spaced */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto px-1 pb-1 justify-start">
+        <div className="flex gap-2 overflow-x-auto px-1 pb-1 justify-center flex-wrap">
           {images.map((img, i) => (
             <button
               key={i}

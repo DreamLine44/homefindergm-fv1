@@ -88,7 +88,7 @@ export default function CommentList({ postId }) {
             placeholder="Share your thoughts…"
             className="w-full px-4 py-3 border border-stone-200 rounded-xl text-sm outline-none resize-none focus:border-brand-400 focus:ring-1 focus:ring-brand-300"
           />
-          <Button onClick={handlePost} loading={posting} size="sm">Post Comment</Button>
+          <Button onClick={handlePost} loading={posting} size="sm" className="w-full">Post Comment</Button>
         </div>
       )}
     </div>
