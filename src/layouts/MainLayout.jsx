@@ -251,51 +251,47 @@ export default function MainLayout() {
       <footer className="bg-gray-900 text-gray-300 pt-14 pb-8 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          {/* Top section: logo + description spanning full width on mobile, left half on desktop */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 mb-10">
+          {/* Brand row — full width */}
+          <div className="mb-8">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none" className="h-9 mb-4">
+              <path d="M8 30 L28 10 L48 30" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="13" y1="27" x2="13" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+              <line x1="43" y1="27" x2="43" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+              <line x1="13" y1="48" x2="43" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+              <rect x="21" y="30" width="14" height="10" rx="1.5" fill="#f97316"/>
+              <line x1="28" y1="30" x2="28" y2="40" stroke="white" strokeWidth="1.2"/>
+              <line x1="21" y1="35" x2="35" y2="35" stroke="white" strokeWidth="1.2"/>
+              <path d="M6 52 Q28 47 50 52" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round"/>
+              <text x="60" y="40" fontFamily="DM Sans, Arial, sans-serif" fontWeight="800" fontSize="28" fill="white" letterSpacing="-0.8">HomeFinder</text>
+              <text x="229" y="40" fontFamily="DM Sans, Arial, sans-serif" fontWeight="900" fontSize="29" fill="#f97316" letterSpacing="-0.5">GM</text>
+            </svg>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Premium property listings across The Gambia.<br />Find your perfect home today.
+            </p>
+          </div>
 
-            {/* Brand */}
-            <div className="md:max-w-xs">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none" className="h-9 mb-4">
-                <path d="M8 30 L28 10 L48 30" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <line x1="13" y1="27" x2="13" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
-                <line x1="43" y1="27" x2="43" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
-                <line x1="13" y1="48" x2="43" y2="48" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
-                <rect x="21" y="30" width="14" height="10" rx="1.5" fill="#f97316"/>
-                <line x1="28" y1="30" x2="28" y2="40" stroke="white" strokeWidth="1.2"/>
-                <line x1="21" y1="35" x2="35" y2="35" stroke="white" strokeWidth="1.2"/>
-                <path d="M6 52 Q28 47 50 52" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round"/>
-                <text x="60" y="40" fontFamily="DM Sans, Arial, sans-serif" fontWeight="800" fontSize="28" fill="white" letterSpacing="-0.8">HomeFinder</text>
-                <text x="229" y="40" fontFamily="DM Sans, Arial, sans-serif" fontWeight="900" fontSize="29" fill="#f97316" letterSpacing="-0.5">GM</text>
-              </svg>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                Premium property listings across The Gambia.<br />Find your perfect home today.
-              </p>
+          {/* Links — 2 equal columns, full width, nothing gets clipped */}
+          <div className="grid grid-cols-2 gap-6 mb-10">
+            <div>
+              <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Browse</h4>
+              <ul className="space-y-2.5 text-sm">
+                {[
+                  { to: "/properties", label: "All Properties" },
+                  { to: "/about",      label: "About Us" },
+                  { to: "/contact",    label: "Contact" },
+                  { to: "/help",       label: "Help Center" },
+                ].map(({ to, label }) => (
+                  <li key={to}><Link to={to} className="text-gray-400 hover:text-white transition-colors">{label}</Link></li>
+                ))}
+              </ul>
             </div>
-
-            {/* Links grid — always 2 equal columns side by side */}
-            <div className="grid grid-cols-2 gap-8 flex-1 md:max-w-md">
-              <div>
-                <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Browse</h4>
-                <ul className="space-y-2.5 text-sm">
-                  {[
-                    { to: "/properties", label: "All Properties" },
-                    { to: "/about",      label: "About Us" },
-                    { to: "/contact",    label: "Contact" },
-                    { to: "/help",       label: "Help Center" },
-                  ].map(({ to, label }) => (
-                    <li key={to}><Link to={to} className="text-gray-400 hover:text-white transition-colors">{label}</Link></li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Contact</h4>
-                <ul className="space-y-2.5 text-sm text-gray-400">
-                  <li className="flex items-start gap-2">📍 <span>Banjul, The Gambia</span></li>
-                  <li className="flex items-center gap-2">📞 <span>+220 353 2423</span></li>
-                  <li className="flex items-center gap-2">✉️ <span>hello@homefindergm.com</span></li>
-                </ul>
-              </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Contact</h4>
+              <ul className="space-y-2.5 text-sm text-gray-400">
+                <li className="flex items-start gap-2"><span className="flex-shrink-0">📍</span><span className="break-words">Banjul, The Gambia</span></li>
+                <li className="flex items-center gap-2"><span className="flex-shrink-0">📞</span><span className="break-all">+220 353 2423</span></li>
+                <li className="flex items-start gap-2"><span className="flex-shrink-0">✉️</span><span className="break-all">hello@homefindergm.com</span></li>
+              </ul>
             </div>
           </div>
 
