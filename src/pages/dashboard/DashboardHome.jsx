@@ -129,13 +129,13 @@ export default function DashboardHome() {
                   <div className="flex gap-2 mt-3">
                     <Link
                       to={`/properties/${post._id}`}
-                      className="text-xs text-stone-500 hover:text-stone-700 border border-stone-200 px-2 py-1 rounded transition-colors"
+                      className="flex-1 text-center text-xs text-stone-500 hover:text-stone-700 border border-stone-200 px-2 py-1.5 rounded-lg transition-colors"
                     >
                       View
                     </Link>
                     <Link
                       to={`/dashboard/posts/${post._id}/edit`}
-                      className="text-xs text-stone-500 hover:text-stone-700 border border-stone-200 px-2 py-1 rounded transition-colors"
+                      className="flex-1 text-center text-xs text-stone-500 hover:text-stone-700 border border-stone-200 px-2 py-1.5 rounded-lg transition-colors"
                     >
                       Edit
                     </Link>

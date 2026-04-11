@@ -60,7 +60,7 @@ export default function PropertyDetails() {
         // Second scroll after content renders — ensures we're truly at top
         requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
       });
-  }, [id]);
+  }, [id, navigate]);
 
   if (loading) return <Loader />;
   if (!post)   return null;
@@ -216,6 +216,13 @@ export default function PropertyDetails() {
                 className="flex items-center gap-2 text-sm text-stone-600 hover:text-brand-600 transition-colors">
                 📞 {post.contactPhone}
               </a>
+            )}
+
+            {/* Address details */}
+            {post.addressDetails && (
+              <p className="flex items-start gap-2 text-sm text-stone-500">
+                📌 {post.addressDetails}
+              </p>
             )}
 
             {/* WhatsApp — if phone available, open WhatsApp chat */}

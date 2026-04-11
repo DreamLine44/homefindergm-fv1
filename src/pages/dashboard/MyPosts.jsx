@@ -33,7 +33,7 @@ export default function MyPosts() {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [user]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this listing permanently? This cannot be undone.")) return;

@@ -16,7 +16,9 @@ instance.interceptors.request.use((config) => {
 instance.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    const url = err.config?.url || "";
+    const isAuthRoute = url.includes("/auth/login") || url.includes("/auth/register") || url.includes("/auth/signin") || url.includes("/auth/signup");
+    if (err.response?.status === 401 && !isAuthRoute) {
       localStorage.removeItem("token");
       window.location.href = "/login";
     }

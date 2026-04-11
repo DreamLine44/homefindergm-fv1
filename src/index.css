@@ -104,11 +104,10 @@ img {
     overscroll-behavior: contain;
   }
 
-  /* Minimum touch target for all interactive elements */
-  button, a, [role="button"] {
+  /* Minimum touch target only for standalone interactive elements, not inline ones */
+  button:not(.inline-btn),
+  [role="button"] {
     min-height: 40px;
-    display: inline-flex;
-    align-items: center;
   }
 
   /* Prevent horizontal overflow globally */

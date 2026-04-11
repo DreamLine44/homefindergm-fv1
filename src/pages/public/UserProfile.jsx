@@ -198,16 +198,16 @@ export default function UserProfile() {
             <p className="text-stone-500 text-sm">No listings yet.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
             {posts.map((post) => {
               const img = post.images?.[0]?.url;
               return (
                 <Link
                   key={post._id}
                   to={`/properties/${post._id}`}
-                  className="group bg-white rounded-2xl overflow-hidden border border-stone-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                  className="group bg-white rounded-2xl overflow-hidden border border-stone-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
                 >
-                  <div className="h-44 overflow-hidden bg-stone-100">
+                  <div className="h-48 overflow-hidden bg-stone-100 flex-shrink-0">
                     {img ? (
                       <img
                         src={img}
@@ -220,7 +220,7 @@ export default function UserProfile() {
                     )}
                   </div>
                   <div className="p-4 flex flex-col flex-1">
-                    <div className="mb-1"><Badge variant="brand">{post.type}</Badge></div>
+                    <div className="mb-1.5"><Badge variant="brand">{post.type}</Badge></div>
                     <h3 className="font-semibold text-stone-900 leading-tight line-clamp-1 group-hover:text-brand-600 transition-colors">
                       {post.title}
                     </h3>

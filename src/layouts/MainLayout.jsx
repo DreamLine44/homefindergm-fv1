@@ -50,7 +50,7 @@ export default function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-warm-50 overflow-x-hidden">
       {/* ── Navbar ── */}
-      <header className="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
 
           {/* Logo */}
@@ -172,25 +172,14 @@ export default function MainLayout() {
             </div>
           </div>
         </div>
+      </header>
 
-        {/* ── Mobile Menu ── */}
-        {mobileOpen && (
-          <>
-            <div className="fixed inset-0 top-16 bg-black/30 z-30 md:hidden" onClick={() => setMobileOpen(false)} />
-            <div className="fixed left-0 right-0 top-16 z-40 bg-white border-b border-gray-100 shadow-xl md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto">
-              {/* Sticky close button — always visible at top of panel */}
-              <div className="sticky top-0 bg-white z-10 flex justify-end px-4 pt-3 pb-2 border-b border-gray-50">
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500"
-                  aria-label="Close menu"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <nav className="px-4 py-3 space-y-1">
+      {/* ── Mobile Menu — sibling to header, fixed below it ── */}
+      {mobileOpen && (
+        <>
+          <div className="fixed inset-0 top-16 bg-black/30 z-40 md:hidden" onClick={() => setMobileOpen(false)} />
+          <div className="fixed left-0 right-0 top-16 bottom-0 z-40 bg-white md:hidden overflow-y-auto">
+            <nav className="px-4 py-3 space-y-1">
                 {NAV_LINKS.map(({ to, label, exact }) => (
                   <NavLink key={to} to={to} end={exact}
                     onClick={() => setMobileOpen(false)}
@@ -255,9 +244,8 @@ export default function MainLayout() {
             </div>
           </>
         )}
-      </header>
 
-      <main className="flex-1"><Outlet /></main>
+      <main className="flex-1 pt-16"><Outlet /></main>
 
       {/* ── Footer ── */}
       <footer className="bg-gray-900 text-gray-300 pt-14 pb-8 mt-auto">

@@ -99,7 +99,7 @@ export default function Home() {
             <Button variant="outline">View all →</Button>
           </Link>
         </div>
-        <PostGrid posts={posts} loading={loading} />
+        <PostGrid posts={posts} loading={loading} equalHeight />
       </section>
 
       {/* CTA */}

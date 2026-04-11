@@ -9,7 +9,7 @@ export default function Listings() {
   const [filters,  setFilters]  = useState({
     type: "", city: "", minPrice: "", maxPrice: "", sort: "newest", search: "",
   });
-  // Image B fix: view state is wired through to PostGrid → PostCard
+  // view state is wired through to PostGrid → PostCard
   const [view, setView] = useState("grid");
 
   useEffect(() => {
